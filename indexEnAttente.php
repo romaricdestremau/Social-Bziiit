@@ -126,6 +126,60 @@
 
 
 
+    <!-- Récupération des données du jour par l'API -->
+    <?php
+
+    $date_debut = "2016-04-14";
+    $date_fin = "2016-04-15";
+    $cube_uuid = "7ca25a8a-521d-11e5-8b5b-4c72b92639a5";
+    $token = "66bd32d0c3bc1e46838746ba5483baa62ca46312";
+
+
+    $url = "http://api.trencube.com/get_traffic/" . $cube_uuid . "/" . $date_debut . "/" . $date_fin . "/";
+    echo $url . "</br></br>";
+
+    //Initiate curl
+    $ch = curl_init();
+    // Set the url
+    curl_setopt($ch, CURLOPT_URL, $url);
+    // Will return the response, if false it print the response
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // Disable SSL verification
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Token " . $token));
+
+
+    //curl_setopt($ch, CURLOPT_ENCODING ,"");
+
+    // Execute
+    $result = curl_exec($ch);
+    $final = json_decode($result, true);
+
+    if(curl_errno($ch))
+    {
+        echo 'Erreur cURL : ' . curl_error($ch);
+    }
+    // Closing
+    curl_close($ch);
+
+
+    // Afficher le json brut
+    var_dump($final);
+
+    // $nombre_passage = $final->{'date'}->{'total_traffic'}->{'cube_uuid'}->{'unique_traffic'};
+    $nombre_passage = $final[date][total_traffic][cube_uuid][unique_traffic];
+    echo $nombre_passage;
+
+
+    //$result = file_get_contents($url);  //on a pas les droits, autre méthode que curl
+
+
+    ?>
+
+
+
+
     <!-- Info du jour -->
     <section id="infodujour" class="bg-danger">
         <div class="container">
