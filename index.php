@@ -11,14 +11,24 @@
 
     <title>Social Bziiit</title>
 
+
+    <!-- compiler less avec php -->
+    <!-- <?php
+    require 'lessc.inc.php';
+    try {
+        lessc::ccompile('less/agency.less', 'css/agency.css');
+    } catch (exception $ex) {
+         exit('lessc fatal error:
+         '.$ex->getMessage());
+    }
+    ?> -->
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/agency.css" rel="stylesheet">
-
-    <!-- custom CSS avec Less compilé a la volée a chaque reload, a changer lorsque le site sera en production -->
-    <!-- <link rel="stylesheet/less" type="text/css" href="styles.less" /> -->
+    <link href="css/agency.css" media="screen" rel="stylesheet">
+    <link href="css/style.css" media="screen" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -59,7 +69,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="text-center">
-                      <a style="padding-top: 8px;"><img src="logoBziiit.png" alt="Logo Bziiit"/>  propulsé par Bziiit</a>
+                      <a style="padding-top: 8px;"><img src="logoBziiit.png" alt="Logo Bziiit"/>Propulsé par Bziiit</a>
                     </li>
                     <li class="text-center">
                       <a href="http://www.bziiitbooster.com" title="Vous ne le regretterez pas!" target="_blank">Bziiit c'est quoi?</a>
@@ -77,27 +87,34 @@
         <!-- /.container-fluid -->
     </nav>
 
+
+
+
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-              <div class="intro-heading">Combien de passants étaient devant votre vitrine hier?</div>
+              <div class="intro-heading"><h1>Combien de passants étaient devant votre vitrine hier?</h1></div>
+
               <div class="intro-lead-in">Les ETs Ligerot vous offrent la réponse!</div>
               <a href="#infodujour" class="page-scroll btn btn-xl">Cliquez ici!</a>
             </div>
         </div>
     </header>
 
-		<section class="bg-info">
+
+
+
+		<section class="bg-info section1">
         <div class="container">
             <div class="row">
 							<div class="col-sm-6">
 								<img class="img-circle img-responsive" src="amelieArnon.jpg" alt="image du client bziiit"/>
 							</div>
-              <div class="col-sm-6 text-center">
-                  <p>"Bonjour cher voisin, Grace à bziiit, je reçois chaque jour les chiffres du trafic devant et dans ma boutique. Cette donnée est devenue un éléments indispensable de gestion" </p>
-                  <hr class="">
-                  <p class="">Amélie ARNON, Directrice des Ets LIGEROTS:</p>
+              <div class="col-sm-6 text-center fond-mi-transparent">
+                  <h3>"Bonjour cher voisin! </br> Grace à bziiit, je reçois chaque jour les chiffres du trafic devant et dans ma boutique. Cette donnée est devenue un éléments indispensable de gestion"</h3>
+                  <hr>
+                  <p class="italic">Amélie ARNON, Directrice des Ets LIGEROTS:</p>
                   <a href="#" class="btn btn-primary">Signature numérique d'Amélie</a>
               </div>
             </div>
@@ -107,16 +124,20 @@
 
 
     <!-- Info du jour -->
-    <section id="infodujour" class="bg-light-gray">
+    <section id="infodujour" class="bg-danger">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Votre info du jour</h2>
-                    <h3 class="section-subheading ">M. X, votre boutique est située au 17 rue des Acacias à SARLAT, hier mardi 14 mai 2016, <strong>3356</strong> personnes sont passées devant votre vitrine.</h3>
+                    <h3 class="section-subheading" style="font-size: 30px">M. X, votre boutique est située au 17 rue des Acacias à SARLAT, hier mardi 14 mai 2016, <strong>3356</strong> personnes sont passées devant votre vitrine.</h3>
                 </div>
+                <div class="text-center info-jour">
+                  3356 Passants!
+                </div>
+
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <a href="#portfolioModal1" data-toggle="modal">
                         <div class="portfolio-hover">
@@ -159,7 +180,7 @@
                         <p class="text-muted">Website Design</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 
