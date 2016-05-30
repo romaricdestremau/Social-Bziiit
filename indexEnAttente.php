@@ -126,17 +126,21 @@
 
 
 
+
+
+
+
     <!-- Récupération des données du jour par l'API -->
     <?php
 
-    $date_debut = "2016-04-14";
+    $date_debut = "2016-04-10";
     $date_fin = "2016-04-15";
     $cube_uuid = "7ca25a8a-521d-11e5-8b5b-4c72b92639a5";
     $token = "66bd32d0c3bc1e46838746ba5483baa62ca46312";
 
 
     $url = "http://api.trencube.com/get_traffic/" . $cube_uuid . "/" . $date_debut . "/" . $date_fin . "/";
-    echo $url . "</br></br>";
+    // echo $url . "</br></br>";
 
     //Initiate curl
     $ch = curl_init();
@@ -146,11 +150,9 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     // Disable SSL verification
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
+    // Ajouter le header avec le token
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Token " . $token));
 
-
-    //curl_setopt($ch, CURLOPT_ENCODING ,"");
 
     // Execute
     $result = curl_exec($ch);
@@ -164,16 +166,8 @@
     curl_close($ch);
 
 
-    // Afficher le json brut
-    var_dump($final);
-
-    // $nombre_passage = $final->{'date'}->{'total_traffic'}->{'cube_uuid'}->{'unique_traffic'};
-    $nombre_passage = $final[date][total_traffic][cube_uuid][unique_traffic];
-    echo $nombre_passage;
-
-
-    //$result = file_get_contents($url);  //on a pas les droits, autre méthode que curl
-
+    // Récupération de l'info
+    $nombre_passage = $final[0]["total_traffic"];
 
     ?>
 
@@ -186,10 +180,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Votre info du jour</h2>
-                    <h3 class="section-subheading" style="font-size: 30px">M. X, votre boutique est située au 17 rue des Acacias à SARLAT, hier mardi 14 mai 2016, <strong>3356</strong> personnes sont passées devant votre vitrine.</h3>
+                    <h3 class="section-subheading" style="font-size: 30px">M. X, votre boutique est située au 17 rue des Acacias à SARLAT, hier mardi 14 mai 2016, <strong><?php echo $nombre_passage; ?></strong> personnes sont passées devant votre vitrine.</h3>
                 </div>
                 <div class="text-center info-jour">
-                  3356 Passants!
+                  <?php echo $nombre_passage; ?> Passants!
                 </div>
 
             </div>
@@ -256,9 +250,30 @@
                 <div class="col-lg-12">
                     <form name="inscription" id="inscription" >
                         <div class="row">
-                            <div class="col-md-6">
+                          <div class="col-md-6">
+                            <fieldset>
+                              <legend>
+                                <div class="col-sm-6">
+                                  Contact Principal
+                                </div>
+                                <p class="text-inline">
+                                  <label class="radio-inline"><input type="radio" value="M" name="civilité" required data-validation-required-message="Veuillez entrer votre civilité">M.</label>
+                                  <label class="radio-inline"><input type="radio" value="Mme" name="civilité">Mme.</label>
+                                  <label class="radio-inline"><input type="radio" value="Mlle" name="civilité">Mlle.</label>
+                                  <p class="help-block text-danger"></p>
+                                </p>
+
+                              </legend>
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Votre nom" id="nom" required data-validation-required-message="Veuillez entrer votre nom">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Votre prénom" id="prenom" required data-validation-required-message="Veuillez entrer votre prénom">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Votre fonction" id="fonction" required data-validation-required-message="Veuillez entrer votre fonction">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
@@ -266,30 +281,65 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
+                                    <input type="fixe" class="form-control" placeholder="Votre numéro fixe" id="fixe" required data-validation-required-message="Veuillez entrer votre numéro fixe">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
                                     <input type="tel" class="form-control" placeholder="Votre numéro de téléphone" id="numTel" required data-validation-required-message="Veuillez entrer votre numéro de téléphone">
                                     <p class="help-block text-danger"></p>
                                 </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" placeholder="Votre numéro de fax" id="fax" required data-validation-required-message="Veuillez entrer votre numéro de fax">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                              </fieldset>
                             </div>
+
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Votre boutique" id="boutique" required data-validation-required-message="Veuillez entrer le nom de votre boutique">
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                                <div class="form-group">
-                                    <input type="adress" class="form-control" placeholder="Votre adresse" id="adresse" required data-validation-required-message="Veuillez entrer l'adresse de votre boutique">
-                                    <p class="help-block text-danger"></p>
-                                </div>
+                              <fieldset>
+                                <legend>Coordonnées et informations de la société</legend>
+                                  <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="Nom de la société" id="societe" required data-validation-required-message="Veuillez entrer le nom de votre boutique">
+                                      <p class="help-block text-danger"></p>
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="Référence" id="reference" required data-validation-required-message="Veuillez entrer le nom de votre boutique">
+                                      <p class="help-block text-danger"></p>
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="Site Web" id="siteWeb" required data-validation-required-message="Veuillez entrer le nom de votre boutique">
+                                      <p class="help-block text-danger"></p>
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="email" class="form-control" placeholder="Votre adresse mail" id="mail" required data-validation-required-message="Veuillez entrer votre adresse mail">
+                                      <p class="help-block text-danger"></p>
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="fixe" class="form-control" placeholder="Votre numéro fixe" id="fixe" required data-validation-required-message="Veuillez entrer votre numéro fixe">
+                                      <p class="help-block text-danger"></p>
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="tel" class="form-control" placeholder="Votre numéro de téléphone" id="numTel" required data-validation-required-message="Veuillez entrer votre numéro de téléphone">
+                                      <p class="help-block text-danger"></p>
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="tel" class="form-control" placeholder="Votre numéro de fax" id="fax" required data-validation-required-message="Veuillez entrer votre numéro de fax">
+                                      <p class="help-block text-danger"></p>
+                                  </div>
+                              </fieldset>
                             </div>
+
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
                                 <button type="submit" class="btn btn-default btn-success btn-lg">Valider l'inscription</button>
-                                <a class="btn btn-info" href="connexion.php">Vous avez déjà un compte?</a>
+                                <a class="btn btn-info btn-lg" href="connexion.php">Vous avez déjà un compte de société?</a>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
         </div>
     </section>
 
